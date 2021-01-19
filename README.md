@@ -1,10 +1,12 @@
-# :large_blue_diamond: Diploma project at Practicum by Yandex - frontend
+# :large_blue_diamond: Diploma project at Practicum by Yandex
 
-:small_blue_diamond: Frontend part of a React application with these **functions**:
+Frontend and backend, full MERN functionality.
+
+:small_blue_diamond: React application with these **functions**:
 * registration,
 * authorization,
 * searching news by keywords,
-* adding/deleting articles to favorites list;
+* adding/deleting articles to favorites list.
 ---
 ## :mag_right: Preview
 
@@ -12,34 +14,13 @@
 ---
 ## :link: Links to test
 
+- Project link: https://news-explorer-diana.students.nomoreparties.xyz
+
+- Backend domain name: https://api.news-explorer-diana.students.nomoreparties.xyz
+
+- Public IP: 178.154.233.146
 
 ---
-## :arrow_down: How to install and test
-
-1. Clone the repository:
-
-```
-git clone https://github.com/dianadomino24/news-explorer-frontend.git
-```
-
-2. Install dependencies:
-
-```
-npm install
-```
-
-3. Development mode:
-   
-Builds the app for production to the `build` folder.\
-```
-      npm run build
-```
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-```
-      npm run start
-```
-
 
 ## :rocket: Technologies
 
@@ -86,3 +67,40 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## :sparkles: Thanks for watching! 
 
+[comment]: <> (## :arrow_down: How to install and test)
+
+[comment]: <> (1. Clone the repository:)
+
+[comment]: <> (```)
+
+[comment]: <> (git clone https://github.com/dianadomino24/news-explorer-frontend.git)
+
+[comment]: <> (```)
+
+[comment]: <> (2. Install dependencies:)
+
+[comment]: <> (```)
+
+[comment]: <> (npm install)
+
+[comment]: <> (```)
+
+[comment]: <> (3. Development mode:)
+
+[comment]: <> (Builds the app for production to the `build` folder.\)
+
+[comment]: <> (```)
+
+[comment]: <> (      npm run build)
+
+[comment]: <> (```)
+
+[comment]: <> (Runs the app in the development mode.\)
+
+[comment]: <> (Open [http://localhost:3000]&#40;http://localhost:3000&#41; to view it in the browser.)
+
+[comment]: <> (```)
+
+[comment]: <> (      npm run start)
+
+[comment]: <> (```)
