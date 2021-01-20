@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Redirect, Route, Switch, useHistory,
 } from 'react-router-dom';
@@ -12,10 +12,10 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Overlay from '../Overlay/Overlay';
 import { initialCards } from '../../utils/constants';
+import * as auth from '../../utils/auth';
+import { getToken, removeToken, setToken } from '../../utils/token';
 
 function App() {
-  // здесь и ниже в стейтах выключаю линтер, чтобы не ругался на
-  // неиспользуемые пока переменные (временная мера)
   // eslint-disable-next-line no-unused-vars
   const [currentUser, setCurrentUser] = useState({
     name: 'Leo', _id: null, email: '', password: '',
@@ -52,6 +52,7 @@ function App() {
   };
 
   function signOut() {
+    removeToken();
     setLoggedIn(false);
     history.push('/sign-in');
   }
@@ -61,24 +62,85 @@ function App() {
   };
 
   const handleLogin = (email, password, resetForm) => {
-    resetForm();
-    setLoggedIn(true);
-    setOpenedPopup('');
-    // eslint-disable-next-line no-console
-    console.log(email, password);
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (!data) {
+          setErrorTotal('Something went wrong on authorization');
+          return false;
+        }
+        if (data.token) {
+          // eslint-disable-next-line no-console
+          console.log(data);
+          setToken(data.token);
+          setErrorTotal('');
+          resetForm();
+          setCurrentUser({ email: data.email, name: data.name });
+          setLoggedIn(true);
+          setOpenedPopup('');
+          history.push('/');
+          return isLoggedIn;
+        }
+        throw new Error('Something went wrong on authorization');
+      })
+      .catch((err) => {
+        setErrorTotal(`Error: ${err.message}`);
+
+        if (err.status === 401) {
+          return console.log(`User with this email is not found : ${err}`);
+        }
+        if (err.status === 400) {
+          return console.log(`One of the inputs is not filled in : ${err}`);
+        }
+        return console.log(`App authorize Error: ${err.message}`);
+      });
   };
   const handleRegister = (email, password, resetForm, name) => {
-    resetForm();
-    setOpenedPopup('register-success');
-    // выключаю линтер, чтобы не ругался на неиспользуемые пока переменные (временная мера)
-    // eslint-disable-next-line no-console
-    console.log(email, password, name);
+    auth
+      .register(email, password, name)
+      .then((res) => {
+        if (res) {
+          console.log(res);
+          setErrorTotal('');
+          resetForm();
+          setOpenedPopup('register-success');
+          history.push('/sign-in');
+        }
+      })
+      .catch((err) => {
+        setErrorTotal(`Error: ${err.message}`);
+        console.log(`App onRegister: ${err.message}`);
+      });
   };
   const setUser = (evt) => {
     const { target } = evt;
     const { name, value } = target;
     setCurrentUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
+  const tokenCheck = () => {
+    const jwt = getToken();
+
+    if (!jwt) {
+      return;
+    }
+
+    auth
+      .getContent(jwt)
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          setCurrentUser((prevUser) => ({ ...prevUser, name: res.name }));
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        console.log(`getContent: ${err}`);
+      });
+  };
+  // will check token on element mounting and route changing
+  useEffect(() => {
+    tokenCheck();
+  }, [isLoggedIn, history]);
 
   return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -103,6 +165,7 @@ function App() {
                     handleLogin={handleLogin}
                     handleRegister={handleRegister}
                     errorTotal={errorTotal}
+                    setErrorTotal={setErrorTotal}
                     onChange={setUser}
                 />
 

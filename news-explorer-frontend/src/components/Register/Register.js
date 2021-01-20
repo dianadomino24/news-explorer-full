@@ -1,8 +1,11 @@
 import RegisterLoginTemplate from '../RegisterLoginTemplate/RegisterLoginTemplate';
 
-function Register({ openPopup, handleRegister, ...props }) {
+function Register({
+  openPopup, handleRegister, setErrorTotal, ...props
+}) {
   const switchForm = () => {
     openPopup('login');
+    setErrorTotal('');
   };
 
   return (
@@ -12,6 +15,7 @@ function Register({ openPopup, handleRegister, ...props }) {
             handleSubmit={handleRegister}
             buttonName='Sign up'
             linkName='Log in'
+            setErrorTotal={setErrorTotal}
             {...props}
         />
   );

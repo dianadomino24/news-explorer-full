@@ -12,6 +12,7 @@ function RegisterLoginTemplate({
   handleSubmit,
   errorTotal,
   onChange,
+  setErrorTotal,
 }) {
   const {
     values,
@@ -22,6 +23,7 @@ function RegisterLoginTemplate({
   } = useForm();
 
   const handleFormChange = (e) => {
+    setErrorTotal('');
     handleChange(e);
     onChange(e);
   };
