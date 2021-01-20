@@ -11,11 +11,11 @@ import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Overlay from '../Overlay/Overlay';
-import { initialCards } from '../../utils/constants';
 import * as auth from '../../utils/auth';
 import { getToken, removeToken, setToken } from '../../utils/token';
 // import mainApi from '../../utils/MainApi';
 import newsApi from '../../utils/NewsApi';
+import notFoundImg from '../../images/not-found-icon.svg';
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -30,7 +30,7 @@ function App() {
   const [isNavMenuOpened, setIsNavMenuOpened] = useState(false);
   const history = useHistory();
   // eslint-disable-next-line no-unused-vars
-  const [cards, setCards] = useState(initialCards);
+  const [cards, setCards] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [keywords, setKeywords] = useState(['Nature', 'Birds', 'Travel', 'Sea']);
   // eslint-disable-next-line no-unused-vars
@@ -159,7 +159,7 @@ function App() {
           date: item.publishedAt,
           source: item.source.name,
           link: item.url,
-          image: item.urlToImage,
+          image: item.urlToImage || notFoundImg,
         }));
         setSearchState('found');
         setCards(articles);
