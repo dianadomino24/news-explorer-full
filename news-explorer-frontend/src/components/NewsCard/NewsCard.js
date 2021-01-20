@@ -6,7 +6,7 @@ import InfoDetail from '../InfoDetail/InfoDetail';
 import notFoundImg from '../../images/not-found-icon.svg';
 
 function NewsCard({
-  card, isLoggedIn,
+  card, isLoggedIn, handleSaveArticle,
 }) {
   const {
     keyword,
@@ -16,6 +16,7 @@ function NewsCard({
     source,
     link,
     image,
+
   } = card;
   const cardElement = useRef();
   const button = useRef();
@@ -33,7 +34,7 @@ function NewsCard({
   const handleSave = () => {
     button.current.blur();
     setIsSaved(!isSaved);
-    // handleSaveArticle(card);
+    handleSaveArticle(card);
   };
 
   const dateToFormat = new Date(date);

@@ -13,7 +13,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Overlay from '../Overlay/Overlay';
 import * as auth from '../../utils/auth';
 import { getToken, removeToken, setToken } from '../../utils/token';
-// import mainApi from '../../utils/MainApi';
+import mainApi from '../../utils/MainApi';
 import newsApi from '../../utils/NewsApi';
 import notFoundImg from '../../images/not-found-icon.svg';
 
@@ -165,9 +165,16 @@ function App() {
       });
   };
 
-  // handleSaveArticle() {
-  //
-  // }
+  const handleSaveArticle = (card) => {
+    mainApi
+      .saveArticle(card)
+      .then((item) => {
+        setSavedArticles([item, ...savedArticles]);
+      })
+      .catch((err) => {
+        console.log(`On article save: ${err}`);
+      });
+  };
 
   return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -203,6 +210,7 @@ function App() {
                         component={SavedNews}
                         setTheme={setTheme}
                         savedArticles={savedArticles}
+                        handleSaveArticle={handleSaveArticle}
                         keywords={keywords}
                     />
 
@@ -213,6 +221,7 @@ function App() {
                             searchState={searchState}
                             setSearchState={setSearchState}
                             handleSearch={handleSearch}
+                            handleSaveArticle={handleSaveArticle}
                         />
                     </Route>
 
