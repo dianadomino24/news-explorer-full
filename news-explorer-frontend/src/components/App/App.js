@@ -147,7 +147,6 @@ function App() {
     setSearchState('searching');
     newsApi.getArticles(keyword)
       .then((data) => {
-        console.log(data);
         if (data.articles.length === 0) {
           setSearchState('notFound');
           return;
@@ -165,6 +164,10 @@ function App() {
         setCards(articles);
       });
   };
+
+  // handleSaveArticle() {
+  //
+  // }
 
   return (
         <CurrentUserContext.Provider value={currentUser}>

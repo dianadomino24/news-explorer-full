@@ -1,5 +1,5 @@
 import './NewsCard.css';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Button from '../Button/Button';
 import InfoDetail from '../InfoDetail/InfoDetail';
@@ -21,6 +21,8 @@ function NewsCard({
   const button = useRef();
   const infoDetail = useRef();
 
+  const [isSaved, setIsSaved] = useState(false);
+
   const showDetail = () => {
     infoDetail.current.classList.add('info-detail_visible');
   };
@@ -30,7 +32,8 @@ function NewsCard({
 
   const handleSave = () => {
     button.current.blur();
-    button.current.classList.toggle('button_type_icon_bookmark_saved');
+    setIsSaved(!isSaved);
+    // handleSaveArticle(card);
   };
 
   const dateToFormat = new Date(date);
@@ -64,14 +67,19 @@ function NewsCard({
                 <Route path="/">
                     {!isLoggedIn && (
                         <InfoDetail classes='' refObj={infoDetail}>
-                            Log in to add bookmarks
+                          Log in to add bookmarks
                         </InfoDetail>
                     )}
-                    <Button
+                  {isLoggedIn && (
+                    <InfoDetail classes='' refObj={infoDetail}>
+                      {isSaved ? 'Remove from favorites' : 'Add to favourites'}
+                    </InfoDetail>
+                  )}
+                  <Button
                         forwardedRef={button}
-                        onMouseEnter={isLoggedIn ? null : showDetail}
-                        onMouseLeave={isLoggedIn ? null : hideDetail}
-                        buttonClasses="button_type_icon button_type_icon_bookmark_regular"
+                        onMouseEnter={showDetail}
+                        onMouseLeave={hideDetail}
+                        buttonClasses={`button_type_icon ${isSaved ? 'button_type_icon_bookmark_saved' : 'button_type_icon_bookmark_regular'} `}
                         onClick={isLoggedIn ? handleSave : undefined}
                     />
                 </Route>
