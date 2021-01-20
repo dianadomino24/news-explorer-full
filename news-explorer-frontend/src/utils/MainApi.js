@@ -1,16 +1,17 @@
 import { BASE_URL, HEADERS } from './config';
 
+function getResponseData(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(new Error(`Error: ${res.status}`));
+}
+
 class MainApi {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-  }
-
-  _getResponseData(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(new Error(`Error: ${res.status}`));
+    this.getResponseData = getResponseData.bind(this);
   }
 
   getItems(label) {
@@ -20,7 +21,7 @@ class MainApi {
         ...this._headers,
         authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
-    }).then((res) => this._getResponseData(res));
+    }).then((res) => this.getResponseData(res));
   }
 
   saveArticle(item) {
@@ -31,7 +32,7 @@ class MainApi {
         authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
       body: JSON.stringify(item),
-    }).then((res) => this._getResponseData(res));
+    }).then((res) => this.getResponseData(res));
   }
 
   deleteArticle(title, id) {
@@ -41,7 +42,7 @@ class MainApi {
         ...this._headers,
         authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
-    }).then((res) => this._getResponseData(res));
+    }).then((res) => this.getResponseData(res));
   }
 }
 

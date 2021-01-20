@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Button from '../Button/Button';
 import useForm from '../../hooks/useForm';
 
-function SearchForm({ setSearchState }) {
+function SearchForm({ handleSearch }) {
   const warningMessage = 'Please, fill in a keyword';
   const [isInputEmpty, setIsInputEmpty] = useState(false);
 
@@ -19,14 +19,15 @@ function SearchForm({ setSearchState }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!e.target.searchForm.value.replace(/\s/g, '').trim().length) {
+    const keyword = e.target.searchForm.value;
+    if (!keyword.replace(/\s/g, '').trim().length) {
       e.target.searchForm.value = '';
       setIsInputEmpty(true);
       resetForm();
       return;
     }
     // !!!!!!!! temporary
-    setSearchState('found');
+    handleSearch(keyword);
   };
 
   return (

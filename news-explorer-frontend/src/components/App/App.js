@@ -14,6 +14,8 @@ import Overlay from '../Overlay/Overlay';
 import { initialCards } from '../../utils/constants';
 import * as auth from '../../utils/auth';
 import { getToken, removeToken, setToken } from '../../utils/token';
+// import mainApi from '../../utils/MainApi';
+import newsApi from '../../utils/NewsApi';
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -71,7 +73,6 @@ function App() {
         }
         if (data.token) {
           // eslint-disable-next-line no-console
-          console.log(data);
           setToken(data.token);
           setErrorTotal('');
           resetForm();
@@ -84,7 +85,7 @@ function App() {
         throw new Error('Something went wrong on authorization');
       })
       .catch((err) => {
-        setErrorTotal(`Error: ${err.message}`);
+        setErrorTotal(`${err.message}`);
 
         if (err.status === 401) {
           return console.log(`User with this email is not found : ${err}`);
@@ -108,7 +109,7 @@ function App() {
         }
       })
       .catch((err) => {
-        setErrorTotal(`Error: ${err.message}`);
+        setErrorTotal(`${err.message}`);
         console.log(`App onRegister: ${err.message}`);
       });
   };
@@ -141,6 +142,13 @@ function App() {
   useEffect(() => {
     tokenCheck();
   }, [isLoggedIn, history]);
+
+  const handleSearch = (keyword) => {
+    newsApi.getArticles(keyword)
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
   return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -185,6 +193,7 @@ function App() {
                             cards={cards}
                             searchState={searchState}
                             setSearchState={setSearchState}
+                            handleSearch={handleSearch}
                         />
                     </Route>
 

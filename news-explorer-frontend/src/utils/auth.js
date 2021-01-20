@@ -5,10 +5,7 @@ const getResponseData = (res) => res.json()
 
 export const register = (email, password, name) => fetch(`${BASE_URL}/signup`, {
   method: 'POST',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
+  headers: HEADERS,
   body: JSON.stringify({ email, password, name }),
 }).then((res) => getResponseData(res));
 

@@ -6,31 +6,32 @@ const interval = new Intl.DateTimeFormat(options).format(
   Date.now() - 24 * 60 * 60 * 1000 * DAYS_INTERVAL,
 );
 
+function getResponseData(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(new Error(`Error: ${res.status}`));
+}
 class NewsApi {
   constructor(newsConfig) {
     this._newsApiConfig = newsConfig;
-    this._baseUrl = newsConfig.baseUrl;
-    this._headers = newsConfig.headers;
+    this._baseUrl = newsConfig.BASE_URL;
+    this.getResponseData = getResponseData.bind(this);
   }
 
-  _getResponseData(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(new Error(`Error: ${res.status}`));
-  }
-
-  getArticles(keywords) {
+  getArticles(keyword) {
     return fetch(`${this._baseUrl}everything?`
-      + `q=${keywords}&`
+      + `q=${keyword}&`
       + `apiKey=${this._newsApiConfig.KEY}&`
       + `from=${today}&`
       + `to=${interval}&`
       + `pageSize=${this._newsApiConfig.PAGE_SIZE}`,
     {
       method: 'GET',
-      headers: this._headers,
-    }).then((res) => this._getResponseData(res));
+      headers: {
+        Accept: 'application/json',
+      },
+    }).then((res) => this.getResponseData(res));
   }
 }
 
