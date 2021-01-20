@@ -1,0 +1,131 @@
+.button {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+.button_type_text {
+    box-sizing: border-box;
+    border-radius: 100px;
+    font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.33;
+}
+
+.button_type_submit {
+    background: #2F71E5;
+    box-shadow: 0 5px 15px rgba(14, 26, 57, 0.2);
+    border: none;
+    color: #fff;
+    width: 100%;
+}
+
+.button_type_submit:hover {
+    background: #347EFF;
+}
+
+.button_type_close {
+    position: absolute;
+    top: -47px;
+    right: -47px;
+    background: url('../../images/close-cross.svg') center center no-repeat;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+
+.button_type_close:hover {
+    opacity: 0.7;
+}
+
+.button_type_more {
+    font-family: Roboto, 'Arial', 'Helvetica', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.33;
+    text-align: center;
+    color: #1A1B22;
+    background: #fff;
+    border-radius: 80px;
+    width: 100%;
+    border: none;
+}
+
+.button_type_icon {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    transition: all .3s ease-in-out;
+}
+
+.button_type_icon:focus {
+    outline: none;
+}
+
+.button_type_icon_bookmark_regular {
+    background: url('../../images/bookmark.svg') center center no-repeat, #fff;
+}
+
+.button_type_icon_bookmark_regular:hover {
+    background: url('../../images/bookmark-hover.svg') center center no-repeat, #fff;
+}
+
+.button_type_icon_bookmark_saved {
+    background: url('../../images/bookmark-saved.svg') center center no-repeat, #fff;
+}
+
+.button_type_icon_trash {
+    background: url('../../images/trash-light.svg') center center no-repeat, #fff;
+}
+
+.button_type_icon_trash:hover {
+    background-image: url('../../images/trash-dark.svg');
+}
+
+@media all and (max-width: 1280px) {
+    .button_type_close {
+        top: -35px;
+        right: -35px;
+    }
+}
+
+@media all and (max-width: 1024px) {
+    .button_type_icon {
+        top: 8px;
+        right: 8px;
+    }
+}
+
+@media all and (max-width: 750px) {
+    .button_type_icon {
+        top: 16px;
+        right: 16px;
+    }
+}
+
+@media all and (max-height: 580px) {
+    .button_type_close {
+        top: 20px;
+        right: 20px;
+        width: 24px;
+        height: 24px;
+        background-image: url("../../images/close-cross_black.svg");
+    }
+}
+
+@media all and (max-width: 590px) {
+    .button_type_close {
+        top: -40px;
+        right: 16px;
+        width: 24px;
+        height: 24px;
+        background: url('../../images/close-cross.svg') center center no-repeat;
+    }
+}
+
