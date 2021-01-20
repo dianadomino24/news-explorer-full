@@ -34,7 +34,7 @@ function App() {
   // eslint-disable-next-line no-unused-vars
   const [keywords, setKeywords] = useState(['Nature', 'Birds', 'Travel', 'Sea']);
   // eslint-disable-next-line no-unused-vars
-  const [savedArticles, setSavedArticles] = useState(initialCards);
+  const [savedArticles, setSavedArticles] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [searchState, setSearchState] = useState('');
   // eslint-disable-next-line no-unused-vars
@@ -144,9 +144,25 @@ function App() {
   }, [isLoggedIn, history]);
 
   const handleSearch = (keyword) => {
+    setSearchState('searching');
     newsApi.getArticles(keyword)
       .then((data) => {
         console.log(data);
+        if (data.articles.length === 0) {
+          setSearchState('notFound');
+          return;
+        }
+        const articles = data.articles.map((item) => ({
+          keyword,
+          title: item.title,
+          text: item.description,
+          date: item.publishedAt,
+          source: item.source.name,
+          link: item.url,
+          image: item.urlToImage,
+        }));
+        setSearchState('found');
+        setCards(articles);
       });
   };
 

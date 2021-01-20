@@ -32,6 +32,10 @@ function NewsCard({
     button.current.blur();
     button.current.classList.toggle('button_type_icon_bookmark_saved');
   };
+
+  const dateToFormat = new Date(date);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const dateFormatted = dateToFormat.toLocaleString('en-US', options);
   return (
         <li className="news-card" ref={cardElement}>
             {image ? <img
@@ -80,8 +84,7 @@ function NewsCard({
                     target="_blank"
                     rel="noreferrer"
                 >
-                    <time className="news-card__date" dateTime={date}>{date}
-                    </time>
+                    <time className="news-card__date" dateTime={date}>{dateFormatted}</time>
                     <h3 className="news-card__title">{title}</h3>
                     <p className="news-card__text">{text}</p>
                     <p className="news-card__source">{source}</p>

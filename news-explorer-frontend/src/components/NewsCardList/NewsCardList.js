@@ -16,7 +16,7 @@ function NewsCardList({
                 <ul className="news__list">
                     {cards.map((card) => (
                         <NewsCard
-                            key={card._id}
+                            key={card._id || Math.random()}
                             card={card}
                             {...props}
                         />
