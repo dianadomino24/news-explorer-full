@@ -75,6 +75,12 @@ function NewsCard({
   const dateFormatted = dateToFormat.toLocaleString('en-US', options);
   return (
         <li className="news-card" ref={cardElement}>
+          <a
+            href={link}
+            className="news-card__link"
+            target="_blank"
+            rel="noreferrer"
+          >
             {image ? <img
                     className="news-card__image"
                     src={image}
@@ -86,6 +92,7 @@ function NewsCard({
                     src={notFoundImg}
                     alt={title}
                 />}
+          </a>
             <Switch>
                 <Route path="/saved-news">
                     {keyword && <p className="news-card__keyword">{keyword}</p>}
@@ -121,17 +128,11 @@ function NewsCard({
             </Switch>
 
             <div className="news-card__info">
-                <a
-                    href={link}
-                    className="news-card__link"
-                    target="_blank"
-                    rel="noreferrer"
-                >
                     <time className="news-card__date" dateTime={date}>{dateFormatted}</time>
                     <h3 className="news-card__title">{title}</h3>
                     <p className="news-card__text">{text}</p>
                     <p className="news-card__source">{source}</p>
-                </a>
+
             </div>
         </li>
   );

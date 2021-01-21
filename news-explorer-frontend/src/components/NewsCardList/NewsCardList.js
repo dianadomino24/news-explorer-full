@@ -19,15 +19,24 @@ function NewsCardList({
         <section className="news">
             <Container>
                 {type === 'search' && <SectionTitle classes='news__title' title='Search results'/>}
-                <ul className="news__list">
-                    {cards.slice(0, quantity).map((card) => (
+              {type === 'bookmarks' && <ul className="news__list">
+                    {cards.map((card) => (
                         <NewsCard
                             key={card._id || Math.random()}
                             card={card}
                             {...props}
                         />
                     ))}
-                </ul>
+                </ul>}
+              {type === 'search' && <ul className="news__list">
+                {cards.slice(0, quantity).map((card) => (
+                  <NewsCard
+                    key={card._id || Math.random()}
+                    card={card}
+                    {...props}
+                  />
+                ))}
+              </ul>}
                 {type === 'search' && quantity < cards.length ? (
                     <Button
                         buttonClasses="button_type_text button_type_more news__button-more"
