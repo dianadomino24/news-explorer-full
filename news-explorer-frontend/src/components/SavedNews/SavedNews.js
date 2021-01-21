@@ -21,7 +21,6 @@ function SavedNews({
         <section className="saved-news">
             <SavedNewsHeader
                 savedArticles={savedArticles}
-                keywords={keywords}
             />
             <NewsCardList cards={savedArticles} savedArticles={savedArticles} {...props} type='bookmarks'/>
         </section>

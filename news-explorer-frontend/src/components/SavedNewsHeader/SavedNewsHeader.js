@@ -1,11 +1,31 @@
 import './SavedNewsHeader.css';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import Container from '../Container/Container';
 
-function SavedNewsHeader({ savedArticles, keywords }) {
+function SavedNewsHeader({ savedArticles }) {
   const currentUser = useContext(CurrentUserContext);
+
+  const [keywords, setKeywords] = useState([]);
+
+  const sortByFrequency = (arr) => {
+    const frequency = {};
+    arr.forEach((item) => {
+      frequency[item] = 0;
+    });
+    const uniqueKeywords = arr.filter((item) => {
+      frequency[item] += 1;
+      return frequency[item] === 1;
+    });
+    return uniqueKeywords.sort((a, b) => frequency[b] - frequency[a]);
+  };
+
+  useEffect(() => {
+    const savedKeywords = savedArticles.map((article) => article.keyword[0].toUpperCase()
+      + article.keyword.slice(1));
+    setKeywords(sortByFrequency(savedKeywords));
+  }, [savedArticles]);
 
   return (
         <Container>
@@ -21,9 +41,9 @@ function SavedNewsHeader({ savedArticles, keywords }) {
                 />
                 <p className="saved-news-header__keywords-para">
                     {'on these keywords: '}
-                    {keywords[0] && (<span className="saved-news-header__keyword">{keywords[0]}</span>)}
-                    {keywords[1] && (<>, <span className="saved-news-header__keyword">{keywords[1]}</span></>)}
-                    {keywords[2] && (<> and <span className="saved-news-header__keyword">{keywords[2]}</span></>)}
+                  <span className="saved-news-header__keyword">
+                 {keywords.length > 3 ? `${keywords[0]}, ${keywords[1]} and ${keywords.length - 2} other ones` : `${keywords.join(', ')}`}</span>
+
                 </p>
             </div>
         </Container>
