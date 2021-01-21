@@ -10,7 +10,8 @@ function Main({ searchState, ...props }) {
         <main className="main">
             <Banner {...props} />
             {searchState === 'searching' && <Preloader/>}
-            {searchState === 'notFound' && <NotFound/>}
+            {searchState === 'notFound' && <NotFound type='notfound'/>}
+            {searchState === 'error' && <NotFound type='error'/>}
             {searchState === 'found' && (
                 <NewsCardList
                     type='search'

@@ -1,7 +1,7 @@
 import './NotFound.css';
 import notFoundIcon from '../../images/not-found-icon.svg';
 
-function NotFound() {
+function NotFound({ type }) {
   return (
         <div className="not-found">
             <img
@@ -9,11 +9,12 @@ function NotFound() {
                 src={notFoundIcon}
                 alt="Not found"
             />
-            <h2 className="not-found__title">
-                Not found
+           <h2 className="not-found__title">
+             {type === 'notfound' ? 'Not found' : 'Server error'}
             </h2>
             <p className="not-found__text">
-                Unfortunately, nothing was found for your search query.
+              {type === 'notfound' ? 'Unfortunately, nothing was found for your search query.'
+                : 'Unfortunately, an error occurred during the request. There may be a connection problem or the server is unavailable. Wait a bit and try again.'}
             </p>
         </div>
   );

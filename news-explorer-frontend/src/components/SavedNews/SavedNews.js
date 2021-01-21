@@ -6,7 +6,6 @@ import NewsCardList from '../NewsCardList/NewsCardList';
 function SavedNews({
   setTheme,
   savedArticles,
-  keywords,
   ...props
 }) {
   useEffect(() => {

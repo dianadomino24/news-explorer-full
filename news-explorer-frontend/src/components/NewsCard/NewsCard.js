@@ -56,7 +56,7 @@ function NewsCard({
     }
   };
 
-  // when access is forbidden (403)
+  // when access to img src is forbidden (403)
   const handleImgError = (e) => {
     e.target.src = notFoundImg;
     e.target.className = 'news-card__image news-card__image_not-found';

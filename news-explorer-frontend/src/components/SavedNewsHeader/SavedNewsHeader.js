@@ -39,12 +39,13 @@ function SavedNewsHeader({ savedArticles }) {
                         } saved articles `
                     }
                 />
-                <p className="saved-news-header__keywords-para">
-                    {'on these keywords: '}
-                  <span className="saved-news-header__keyword">
+              {keywords.length > 0
+              && <p className="saved-news-header__keywords-para">
+                {'on these keywords: '}
+                <span className="saved-news-header__keyword">
                  {keywords.length > 3 ? `${keywords[0]}, ${keywords[1]} and ${keywords.length - 2} other ones` : `${keywords.join(', ')}`}</span>
-
-                </p>
+              </p>
+              }
             </div>
         </Container>
   );

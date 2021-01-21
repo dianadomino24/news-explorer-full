@@ -1,20 +1,22 @@
 import './Navigation.css';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '../Button/Button';
 import logoutIconDark from '../../images/logout-icon-dark.svg';
 import logoutIconLight from '../../images/logout-icon-light.svg';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function Navigation(props) {
   const {
     theme, isNavMenuOpened, isLoggedIn,
     openPopup,
-    signOut, scrollToTop, toggleNavMenu, currentUser,
+    signOut, scrollToTop, toggleNavMenu,
   } = props;
   const closeNavMenu = () => {
     toggleNavMenu(false);
     scrollToTop();
   };
-
+  const currentUser = useContext(CurrentUserContext);
   const handleNavButtonClick = () => {
     if (isLoggedIn) signOut();
     else {

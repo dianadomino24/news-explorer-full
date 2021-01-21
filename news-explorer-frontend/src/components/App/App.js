@@ -18,26 +18,17 @@ import newsApi from '../../utils/NewsApi';
 import notFoundImg from '../../images/not-found-icon.svg';
 
 function App() {
-  // eslint-disable-next-line no-unused-vars
   const [currentUser, setCurrentUser] = useState({
-    name: 'Leo', _id: null, email: '', password: '',
+    name: '', _id: null, email: '', password: '',
   });
   const [openedPopup, setOpenedPopup] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [theme, setTheme] = useState('dark');
   const [isLoggedIn, setLoggedIn] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [isNavMenuOpened, setIsNavMenuOpened] = useState(false);
   const history = useHistory();
-  // eslint-disable-next-line no-unused-vars
   const [cards, setCards] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [keywords, setKeywords] = useState(['Nature', 'Birds', 'Travel', 'Sea']);
-  // eslint-disable-next-line no-unused-vars
   const [savedArticles, setSavedArticles] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const [searchState, setSearchState] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [errorTotal, setErrorTotal] = useState('');
 
   const openPopup = (popup) => {
@@ -88,11 +79,14 @@ function App() {
         setErrorTotal(`${err.message}`);
 
         if (err.status === 401) {
+          // eslint-disable-next-line no-console
           return console.log(`User with this email is not found : ${err}`);
         }
         if (err.status === 400) {
+          // eslint-disable-next-line no-console
           return console.log(`One of the inputs is not filled in : ${err}`);
         }
+        // eslint-disable-next-line no-console
         return console.log(`App authorize Error: ${err.message}`);
       });
   };
@@ -101,7 +95,6 @@ function App() {
       .register(email, password, name)
       .then((res) => {
         if (res) {
-          console.log(res);
           setErrorTotal('');
           resetForm();
           setOpenedPopup('register-success');
@@ -110,6 +103,7 @@ function App() {
       })
       .catch((err) => {
         setErrorTotal(`${err.message}`);
+        // eslint-disable-next-line no-console
         console.log(`App onRegister: ${err.message}`);
       });
   };
@@ -135,6 +129,7 @@ function App() {
         }
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log(`getContent: ${err}`);
       });
   };
@@ -164,6 +159,8 @@ function App() {
         setCards(articles);
       })
       .catch((err) => {
+        setSearchState('error');
+        // eslint-disable-next-line no-console
         console.log(`handleSearch: ${err}`);
       });
   };
@@ -176,6 +173,7 @@ function App() {
           setSavedArticles(res);
         })
         .catch((err) => {
+          // eslint-disable-next-line no-console
           console.log(`getSavedArticles: ${err}`);
         });
     }
@@ -185,6 +183,7 @@ function App() {
     mainApi.deleteArticle(id)
       .then((res) => setSavedArticles(savedArticles.filter((item) => item._id !== res._id)))
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log(`On article delete: ${err}`);
       });
   };
@@ -193,6 +192,7 @@ function App() {
       .saveArticle(card)
       .then((item) => setSavedArticles([item, ...savedArticles]))
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log(`On article save: ${err}`);
       });
   };
@@ -232,8 +232,6 @@ function App() {
                         savedArticles={savedArticles}
                         handleSaveArticle={handleSaveArticle}
                         handleDeleteArticle={handleDeleteArticle}
-                        keywords={keywords}
-                        setSavedArticles={setSavedArticles}
                     />
 
                     <Route exact path="/">
@@ -246,7 +244,6 @@ function App() {
                             handleSaveArticle={handleSaveArticle}
                             handleDeleteArticle={handleDeleteArticle}
                             savedArticles={savedArticles}
-                            setSavedArticles={setSavedArticles}
                         />
                     </Route>
 
