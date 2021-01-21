@@ -1,6 +1,6 @@
 const BASE_URL = ' https://api.news-explorer-diana.students.nomoreparties.xyz';
-// const newsApiProxi = 'https://nomoreparties.co/news/v2/';
-const newsApiUrl = 'http://newsapi.org/v2/';
+const newsApiProxi = 'https://nomoreparties.co/news/v2/';
+// const newsApiUrl = 'https://newsapi.org/v2/';
 
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const DAYS_INTERVAL = 7;
 const newsApiConfig = {
   // KEY: process.env.API_KEY,
   KEY: '68277cb3c12a4fb7b2a10b5ebfc04a34',
-  BASE_URL: newsApiUrl,
+  BASE_URL: newsApiProxi,
   PAGE_SIZE,
 };
 

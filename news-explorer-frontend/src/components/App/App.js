@@ -112,31 +112,51 @@ function App() {
     const { name, value } = target;
     setCurrentUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
-  const tokenCheck = () => {
+  useEffect(() => {
     const jwt = getToken();
 
     if (!jwt) {
       return;
     }
-
-    auth
-      .getContent(jwt)
-      .then((res) => {
-        if (res) {
+    if (jwt) {
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          setCurrentUser(res);
           setLoggedIn(true);
-          setCurrentUser((prevUser) => ({ ...prevUser, name: res.name }));
           history.push('/');
-        }
-      })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(`getContent: ${err}`);
-      });
-  };
-  // will check token on element mounting and route changing
-  useEffect(() => {
-    tokenCheck();
+        })
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.log(`getContent: ${err}`);
+        });
+    }
   }, [isLoggedIn, history]);
+  // const tokenCheck = () => {
+  //   const jwt = getToken();
+  //
+  //   if (!jwt) {
+  //     return;
+  //   }
+  //
+  //   auth
+  //     .getContent(jwt)
+  //     .then((res) => {
+  //       if (res) {
+  //         setLoggedIn(true);
+  //         setCurrentUser((prevUser) => ({ ...prevUser, name: res.name }));
+  //         history.push('/');
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       // eslint-disable-next-line no-console
+  //       console.log(`getContent: ${err}`);
+  //     });
+  // };
+  // // will check token on element mounting and route changing
+  // useEffect(() => {
+  //   tokenCheck();
+  // }, [isLoggedIn, history]);
 
   const handleSearch = (keyword) => {
     setSearchState('searching');

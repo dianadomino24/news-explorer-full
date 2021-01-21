@@ -23,7 +23,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* dianadomino24@178.154.233.146:/home/dianadomino24/.../frontend"
+    "deploy": "npm run build && scp -r ./build/* dianadomino24@178.154.233.146:/home/dianadomino24/news-explorer/news-explorer-frontend"
   },
   "browserslist": {
     "production": [

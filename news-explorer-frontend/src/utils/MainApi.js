@@ -18,7 +18,8 @@ class MainApi {
     return fetch(this._baseUrl.concat(label), {
       method: 'GET',
       headers: {
-        ...this._headers,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
         authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
     }).then((res) => this.getResponseData(res));
