@@ -181,12 +181,21 @@ function App() {
     }
   }, [isLoggedIn, history]);
 
-  // const handleSaveArticle = (card) => {
-  //   mainApi
-  //     .saveArticle(card)
-  //     .then((item) => setSavedArticles([item, ...savedArticles]));
-  // };
-
+  const handleDeleteArticle = (id) => {
+    mainApi.deleteArticle(id)
+      .then((res) => setSavedArticles(savedArticles.filter((item) => item._id !== res._id)))
+      .catch((err) => {
+        console.log(`On article delete: ${err}`);
+      });
+  };
+  const handleSaveArticle = (card) => {
+    mainApi
+      .saveArticle(card)
+      .then((item) => setSavedArticles([item, ...savedArticles]))
+      .catch((err) => {
+        console.log(`On article save: ${err}`);
+      });
+  };
   return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="app">
@@ -221,7 +230,8 @@ function App() {
                         component={SavedNews}
                         setTheme={setTheme}
                         savedArticles={savedArticles}
-                        // handleSaveArticle={handleSaveArticle}
+                        handleSaveArticle={handleSaveArticle}
+                        handleDeleteArticle={handleDeleteArticle}
                         keywords={keywords}
                         setSavedArticles={setSavedArticles}
                     />
@@ -233,7 +243,8 @@ function App() {
                             searchState={searchState}
                             setSearchState={setSearchState}
                             handleSearch={handleSearch}
-                            // handleSaveArticle={handleSaveArticle}
+                            handleSaveArticle={handleSaveArticle}
+                            handleDeleteArticle={handleDeleteArticle}
                             savedArticles={savedArticles}
                             setSavedArticles={setSavedArticles}
                         />

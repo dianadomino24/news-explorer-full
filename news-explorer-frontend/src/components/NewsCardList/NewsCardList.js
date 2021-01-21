@@ -8,6 +8,7 @@ import SectionTitle from '../SectionTitle/SectionTitle';
 function NewsCardList({
   type,
   cards,
+  savedArticles,
   ...props
 }) {
   const [quantity, setQuantity] = useState(3);
@@ -20,9 +21,9 @@ function NewsCardList({
             <Container>
                 {type === 'search' && <SectionTitle classes='news__title' title='Search results'/>}
               {type === 'bookmarks' && <ul className="news__list">
-                    {cards.map((card) => (
+                    {savedArticles.map((card) => (
                         <NewsCard
-                            key={card._id || Math.random()}
+                            key={card._id}
                             card={card}
                             {...props}
                         />
@@ -33,6 +34,8 @@ function NewsCardList({
                   <NewsCard
                     key={card._id || Math.random()}
                     card={card}
+                    savedArticles={savedArticles}
+
                     {...props}
                   />
                 ))}

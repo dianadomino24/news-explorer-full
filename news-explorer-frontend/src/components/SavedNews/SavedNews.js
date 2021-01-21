@@ -7,6 +7,7 @@ function SavedNews({
   setTheme,
   savedArticles,
   keywords,
+  ...props
 }) {
   useEffect(() => {
     setTheme('light');
@@ -22,7 +23,7 @@ function SavedNews({
                 savedArticles={savedArticles}
                 keywords={keywords}
             />
-            <NewsCardList cards={savedArticles} type='bookmarks'/>
+            <NewsCardList cards={savedArticles} savedArticles={savedArticles} {...props} type='bookmarks'/>
         </section>
 
   );

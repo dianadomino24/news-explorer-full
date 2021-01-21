@@ -4,10 +4,9 @@ import { Route, Switch } from 'react-router-dom';
 import Button from '../Button/Button';
 import InfoDetail from '../InfoDetail/InfoDetail';
 import notFoundImg from '../../images/not-found-icon.svg';
-import mainApi from '../../utils/MainApi';
 
 function NewsCard({
-  card, isLoggedIn, savedArticles, setSavedArticles,
+  card, isLoggedIn, savedArticles, handleSaveArticle, handleDeleteArticle,
 }) {
   const {
     keyword,
@@ -44,26 +43,19 @@ function NewsCard({
   const hideDetail = () => {
     infoDetail.current.classList.remove('info-detail_visible');
   };
+  const handleTrashClick = () => {
+    handleDeleteArticle(card._id);
+  };
 
   const handleSaveClick = () => {
     if (!isSaved) {
-      mainApi
-        .saveArticle(card)
-        .then((item) => setSavedArticles([item, ...savedArticles]))
-        .then(setIsSaved(!isSaved))
-        .catch((err) => {
-          console.log(`On article save: ${err}`);
-        });
+      handleSaveArticle(card);
     }
     if (isSaved) {
-      mainApi.deleteArticle(isSaved._id)
-        .then((res) => setSavedArticles(savedArticles.filter((item) => item._id !== res._id)))
-        .then(setIsSaved(!isSaved))
-        .catch((err) => {
-          console.log(`On article save: ${err}`);
-        });
+      handleDeleteArticle(isSaved._id);
     }
   };
+
   // when access is forbidden (403)
   const handleImgError = (e) => {
     e.target.src = notFoundImg;
@@ -102,7 +94,7 @@ function NewsCard({
                     <Button
                         onMouseEnter={showDetail}
                         onMouseLeave={hideDetail}
-                        // onClick={handleRemove}
+                        onClick={handleTrashClick}
                         buttonClasses="button_type_icon button_type_icon_trash "
                     />
                 </Route>
@@ -131,7 +123,9 @@ function NewsCard({
                     <time className="news-card__date" dateTime={date}>{dateFormatted}</time>
                     <h3 className="news-card__title">{title}</h3>
                     <p className="news-card__text">{text}</p>
-                    <p className="news-card__source">{source}</p>
+                    <a href={link}
+                       target="_blank"
+                       rel="noreferrer" className="news-card__source">{source}</a>
 
             </div>
         </li>

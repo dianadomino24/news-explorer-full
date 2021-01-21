@@ -103,6 +103,8 @@
     line-height: 1.25;
     font-weight: 700;
     text-transform: uppercase;
+    text-decoration: none;
+    padding: 0;
 }
 
 @media all and (max-width: 1024px) {
