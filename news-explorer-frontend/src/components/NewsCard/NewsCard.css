@@ -11,9 +11,9 @@
 }
 
 .news-card__image {
-    max-height: 272px;
+    height: 272px;
     width: 100%;
-    height: 100%;
+
     object-fit: cover;
     background-repeat: no-repeat;
 }
@@ -116,7 +116,7 @@
     }
 
     .news-card__image {
-        max-height: 150px;
+        height: 150px;
     }
 
     .news-card__keyword {
@@ -131,7 +131,7 @@
 
 @media all and (max-width: 750px) {
     .news-card__image {
-        max-height: 196px;
+        height: 196px;
     }
 
     .news-card__title {
@@ -153,13 +153,13 @@
 
 @media all and (max-width: 600px) {
     .news-card__image {
-        max-height: 250px;
+        height: 250px;
     }
 }
 
 @media all and (max-width: 330px) {
     .news-card__image {
-        max-height: 196px;
+       height: 196px;
     }
 }
 

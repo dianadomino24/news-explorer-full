@@ -162,19 +162,30 @@ function App() {
         }));
         setSearchState('found');
         setCards(articles);
+      })
+      .catch((err) => {
+        console.log(`handleSearch: ${err}`);
       });
   };
 
-  const handleSaveArticle = (card) => {
-    mainApi
-      .saveArticle(card)
-      .then((item) => {
-        setSavedArticles([item, ...savedArticles]);
-      })
-      .catch((err) => {
-        console.log(`On article save: ${err}`);
-      });
-  };
+  useEffect(() => {
+    if (isLoggedIn) {
+      mainApi
+        .getItems('/articles')
+        .then((res) => {
+          setSavedArticles(res);
+        })
+        .catch((err) => {
+          console.log(`getSavedArticles: ${err}`);
+        });
+    }
+  }, [isLoggedIn, history]);
+
+  // const handleSaveArticle = (card) => {
+  //   mainApi
+  //     .saveArticle(card)
+  //     .then((item) => setSavedArticles([item, ...savedArticles]));
+  // };
 
   return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -210,8 +221,9 @@ function App() {
                         component={SavedNews}
                         setTheme={setTheme}
                         savedArticles={savedArticles}
-                        handleSaveArticle={handleSaveArticle}
+                        // handleSaveArticle={handleSaveArticle}
                         keywords={keywords}
+                        setSavedArticles={setSavedArticles}
                     />
 
                     <Route exact path="/">
@@ -221,7 +233,9 @@ function App() {
                             searchState={searchState}
                             setSearchState={setSearchState}
                             handleSearch={handleSearch}
-                            handleSaveArticle={handleSaveArticle}
+                            // handleSaveArticle={handleSaveArticle}
+                            savedArticles={savedArticles}
+                            setSavedArticles={setSavedArticles}
                         />
                     </Route>
 

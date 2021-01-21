@@ -1,12 +1,13 @@
 import './NewsCard.css';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Button from '../Button/Button';
 import InfoDetail from '../InfoDetail/InfoDetail';
 import notFoundImg from '../../images/not-found-icon.svg';
+import mainApi from '../../utils/MainApi';
 
 function NewsCard({
-  card, isLoggedIn, handleSaveArticle,
+  card, isLoggedIn, savedArticles, setSavedArticles,
 }) {
   const {
     keyword,
@@ -16,13 +17,26 @@ function NewsCard({
     source,
     link,
     image,
-
   } = card;
   const cardElement = useRef();
   const button = useRef();
   const infoDetail = useRef();
 
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(null);
+
+  function setCardBlue() {
+    setIsSaved(true);
+  }
+
+  useEffect(() => {
+    if (savedArticles) {
+      const savedCard = savedArticles.find((i) => i.title === card.title && i.link === card.link);
+      if (savedCard) {
+        setCardBlue();
+        setIsSaved(savedCard);
+      }
+    }
+  }, []);
 
   const showDetail = () => {
     infoDetail.current.classList.add('info-detail_visible');
@@ -31,10 +45,29 @@ function NewsCard({
     infoDetail.current.classList.remove('info-detail_visible');
   };
 
-  const handleSave = () => {
-    button.current.blur();
-    setIsSaved(!isSaved);
-    handleSaveArticle(card);
+  const handleSaveClick = () => {
+    if (!isSaved) {
+      mainApi
+        .saveArticle(card)
+        .then((item) => setSavedArticles([item, ...savedArticles]))
+        .then(setIsSaved(!isSaved))
+        .catch((err) => {
+          console.log(`On article save: ${err}`);
+        });
+    }
+    if (isSaved) {
+      mainApi.deleteArticle(isSaved._id)
+        .then((res) => setSavedArticles(savedArticles.filter((item) => item._id !== res._id)))
+        .then(setIsSaved(!isSaved))
+        .catch((err) => {
+          console.log(`On article save: ${err}`);
+        });
+    }
+  };
+  // when access is forbidden (403)
+  const handleImgError = (e) => {
+    e.target.src = notFoundImg;
+    e.target.className = 'news-card__image news-card__image_not-found';
   };
 
   const dateToFormat = new Date(date);
@@ -46,7 +79,8 @@ function NewsCard({
                     className="news-card__image"
                     src={image}
                     alt={title}
-                />
+                    onError={handleImgError}
+              />
               : <img
                     className="news-card__image news-card__image_not-found"
                     src={notFoundImg}
@@ -81,7 +115,7 @@ function NewsCard({
                         onMouseEnter={showDetail}
                         onMouseLeave={hideDetail}
                         buttonClasses={`button_type_icon ${isSaved ? 'button_type_icon_bookmark_saved' : 'button_type_icon_bookmark_regular'} `}
-                        onClick={isLoggedIn ? handleSave : undefined}
+                        onClick={isLoggedIn ? handleSaveClick : undefined}
                     />
                 </Route>
             </Switch>
