@@ -1,8 +1,9 @@
 import { newsApiConfig, DAYS_INTERVAL } from './config';
 
+const locales = 'sv';
 const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-const today = new Intl.DateTimeFormat(options).format(Date.now());
-const interval = new Intl.DateTimeFormat(options).format(
+const today = new Intl.DateTimeFormat(locales, options).format(Date.now());
+const interval = new Intl.DateTimeFormat(locales, options).format(
   Date.now() - 24 * 60 * 60 * 1000 * DAYS_INTERVAL,
 );
 

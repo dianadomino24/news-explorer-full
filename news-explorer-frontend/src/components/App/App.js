@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Redirect, Route, Switch, useHistory,
 } from 'react-router-dom';
@@ -26,10 +26,27 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isNavMenuOpened, setIsNavMenuOpened] = useState(false);
   const history = useHistory();
-  const [cards, setCards] = useState([]);
+  // const [cards, setCards] = useState([]);
   const [savedArticles, setSavedArticles] = useState([]);
   const [searchState, setSearchState] = useState('');
   const [errorTotal, setErrorTotal] = useState('');
+  const [localData, setLocalData] = useState([]);
+
+  const saveToLocalStorage = (data) => {
+    localStorage.setItem('localNews', JSON.stringify({ data }));
+  };
+
+  const removeFromLocalStorage = () => {
+    localStorage.removeItem('localNews');
+  };
+
+  const checkStorage = useCallback(() => {
+    if (localStorage.getItem('localNews')) {
+      const { data } = JSON.parse(localStorage.getItem('localNews'));
+      setLocalData(data);
+      setSearchState('found');
+    } else { setSearchState(''); }
+  }, [setLocalData]);
 
   const openPopup = (popup) => {
     setOpenedPopup(popup);
@@ -46,6 +63,10 @@ function App() {
 
   function signOut() {
     removeToken();
+    setLocalData([]);
+    setSearchState('');
+    setOpenedPopup('');
+    removeFromLocalStorage();
     setLoggedIn(false);
     history.push('/sign-in');
   }
@@ -112,6 +133,11 @@ function App() {
     const { name, value } = target;
     setCurrentUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
+
+  useEffect(() => {
+    checkStorage();
+  }, [checkStorage, history]);
+
   useEffect(() => {
     const jwt = getToken();
 
@@ -175,8 +201,10 @@ function App() {
           link: item.url,
           image: item.urlToImage || notFoundImg,
         }));
+        saveToLocalStorage(articles);
+        setLocalData(articles);
         setSearchState('found');
-        setCards(articles);
+        // setCards(articles);
       })
       .catch((err) => {
         setSearchState('error');
@@ -257,13 +285,15 @@ function App() {
                     <Route exact path="/">
                         <Main
                             isLoggedIn={isLoggedIn}
-                            cards={cards}
+                            cards={localData}
                             searchState={searchState}
                             setSearchState={setSearchState}
                             handleSearch={handleSearch}
                             handleSaveArticle={handleSaveArticle}
                             handleDeleteArticle={handleDeleteArticle}
                             savedArticles={savedArticles}
+                            // localData={localData}
+                            // setLocalData={setLocalData}
                         />
                     </Route>
 
