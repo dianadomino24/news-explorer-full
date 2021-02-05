@@ -1,0 +1,15 @@
+.saved-news {
+    padding-top: 80px;
+}
+
+@media all and (max-width: 768px) {
+    .saved-news {
+        padding-top: 66px;
+    }
+}
+
+@media all and (max-width: 550px) {
+    .saved-news {
+        padding-top: 56px;
+    }
+}

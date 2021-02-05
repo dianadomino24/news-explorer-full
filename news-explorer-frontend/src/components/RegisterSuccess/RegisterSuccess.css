@@ -1,0 +1,12 @@
+.register-success {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    padding: 9px 0 23px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-success__link {
+    margin-top: 14px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 18px;
+}

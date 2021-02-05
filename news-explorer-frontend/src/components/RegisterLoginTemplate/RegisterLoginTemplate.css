@@ -1,0 +1,106 @@
+.register-login {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-login__fieldset {
+    padding: 0;
+    margin: 22px 0 16px;
+    width: 100%;
+    border: none;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-weight: 400;
+}
+
+.register-login__label {
+    color: #2F71E5;
+    font-size: 12px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.register-login__input {
+    font-size: 14px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    padding: 9px 0 10px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 2px;
+    margin-bottom: 31px;
+}
+
+.register-login__input:-webkit-autofill,
+.register-login__input:-webkit-autofill:hover,
+.register-login__input:-webkit-autofill:focus,
+.register-login__input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #fff inset;
+}
+
+.register-login__input::placeholder {
+    color: rgba(0, 0, 0, .2);
+}
+
+.register-login__input:focus {
+    outline: none;
+    box-shadow: 0 0 5px #6596f9;
+}
+
+.register-login__error {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 12px;
+    color: #FF0000;
+    max-height: 30px;
+    overflow: hidden;
+}
+
+.register-login__error-total {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 12px;
+    color: #FF0000;
+    min-height: auto;
+    text-align: center;
+    margin: 0 auto 8px;
+}
+
+.register-login__button {
+    padding: 22px 0;
+
+    color: #fff;
+    background-color: #2F71E5;
+
+    box-shadow: 0 5px 15px rgba(14, 26, 57, 0.2);
+}
+
+.register-login__button:hover {
+    background-color: #347EFF;
+}
+
+.register-login__button:active {
+    background-color: #2A65CC;
+}
+
+.register-login__button:disabled {
+    background-color: #E6E8EB;
+    color: #B6BCBF;
+    box-shadow: none;
+}
+
+.register-login__link-box {
+    margin: 0;
+    padding-top: 16px;
+}
+
+.register-login__link-box {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+}

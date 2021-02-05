@@ -10,7 +10,7 @@ Frontend and backend, full MERN functionality.
 ---
 ## :mag_right: Preview
 
-[comment]: <> (![Preview]&#40;./Example3.png&#41;)
+![Preview](./Saved_News.png)
 ---
 ## :link: Links to test
 
