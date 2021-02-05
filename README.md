@@ -21,7 +21,7 @@ Frontend and backend, full MERN functionality.
 - Public IP: 178.154.233.146
 
 ---
-## :arrow_down: How to install and test
+## :arrow_down: How to install and test (front)
 
 1. Clone the repository:
 
@@ -29,7 +29,9 @@ Frontend and backend, full MERN functionality.
 git clone https://github.com/dianadomino24/news-explorer-full.git
 ```
 
-2. Install dependencies:
+2. Switch to frontend branch
+
+3. Install dependencies:
 
 ```
 npm install
