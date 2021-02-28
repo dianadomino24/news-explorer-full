@@ -14,9 +14,9 @@ Frontend and backend, full MERN functionality.
 ---
 ## :link: Links to test
 
-- Project link: https://news-explorer-diana.students.nomoreparties.xyz
+- Project link: https://dianadomino24.github.io/news-explorer-front-final/
 
-- Backend domain name: https://api.news-explorer-diana.students.nomoreparties.xyz
+- Backend domain name: https://news-explorer-back.herokuapp.com
 
 - Public IP: 178.154.233.146
 
