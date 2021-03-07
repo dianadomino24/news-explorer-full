@@ -14,7 +14,7 @@ Frontend and backend, full MERN functionality.
 ---
 ## :link: Links to test
 
-- Project link: https://dianadomino24.github.io/news-explorer-front-final/
+- Project link: https://dianadomino24.github.io/news-explorer-diploma-frontend/
 
 - Backend domain name: https://news-explorer-back.herokuapp.com
 
